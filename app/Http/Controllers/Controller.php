@@ -7,6 +7,7 @@ namespace App\Http\Controllers;
  *     version="1.0.0",
  *     title="Blogidium API Documentation",
  *     description="Comprehensive API documentation for the Blogidium project.",
+ *
  *     @OA\Contact(
  *         name="Nima",
  *         email="nima_8a@yahoo.com",

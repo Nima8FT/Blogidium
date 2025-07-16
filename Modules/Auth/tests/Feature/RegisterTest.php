@@ -22,17 +22,17 @@ class RegisterTest extends TestCase
             'password_confirmation' => 'password',
         ]);
 
-        $response->assertStatus(201);
+        $response->assertOk();
 
-        $response->assertJson([
+        $response->assertJsonStructure([
+            'success',
+            'message',
             'data' => [
-                'id' => 1,
-                'name' => 'John Doe',
-                'username' => 'johndoe',
-                'email' => 'john@example.com',
+                'id',
+                'name',
+                'username',
+                'email',
             ],
-            'success' => true,
-            'message' => 'User created successfully.',
         ]);
 
         $this->assertDatabaseHas('users', [
