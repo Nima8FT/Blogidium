@@ -3,6 +3,7 @@
 namespace Modules\Auth\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Lcobucci\JWT\Exception;
 use Modules\Auth\Http\Requests\LoginRequest;
 use Modules\Auth\Http\Requests\RegisterRequest;
@@ -177,6 +178,62 @@ class AuthController extends Controller
         } catch (Exception $err) {
             return ResponseBuilder::error('User not logged out.');
         }
+    }
+
+    /**
+     * @OA\Delete(
+     *     path="/api/delete-account",
+     *     summary="Delete the authenticated user's account",
+     *     description="Logs out the user by invalidating the JWT token and deletes the authenticated user's account.",
+     *     operationId="deleteAccount",
+     *     tags={"Auth"},
+     *     security={{"bearerAuth":{}}},
+     *
+     *     @OA\Response(
+     *         response=200,
+     *         description="User deleted successfully",
+     *
+     *         @OA\JsonContent(
+     *
+     *             @OA\Property(property="success", type="boolean", example=true),
+     *             @OA\Property(property="message", type="string", example="User deleted successfully."),
+     *             @OA\Property(property="data", type="null", nullable=true)
+     *         )
+     *     ),
+     *
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized - invalid or missing token",
+     *
+     *         @OA\JsonContent(
+     *
+     *             @OA\Property(property="success", type="boolean", example=false),
+     *             @OA\Property(property="message", type="string", example="Unauthorized.")
+     *         )
+     *     ),
+     *
+     *     @OA\Response(
+     *         response=400,
+     *         description="Failed to delete user account",
+     *
+     *         @OA\JsonContent(
+     *
+     *             @OA\Property(property="success", type="boolean", example=false),
+     *             @OA\Property(property="message", type="string", example="User not deleted.")
+     *         )
+     *     )
+     * )
+     */
+    public function deleteAccount()
+    {
+        $this->authService->logout();
+        $user = $this->authService->deleteAccount();
+
+        if (! $user) {
+            return ResponseBuilder::error('User not deleted.');
+        }
+
+        return ResponseBuilder::success(null, 'User deleted successfully.');
     }
 
     public function profile()

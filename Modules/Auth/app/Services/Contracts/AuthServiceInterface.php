@@ -9,4 +9,6 @@ interface AuthServiceInterface
     public function login(array $data);
 
     public function logout();
+
+    public function deleteAccount();
 }

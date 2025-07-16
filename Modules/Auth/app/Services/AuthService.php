@@ -36,4 +36,15 @@ class AuthService implements AuthServiceInterface
 
         return false;
     }
+
+    public function deleteAccount(): bool
+    {
+        $user = Auth::user();
+        $user->delete();
+        if (! $user) {
+            return false;
+        }
+
+        return true;
+    }
 }
