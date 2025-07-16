@@ -11,8 +11,15 @@ namespace App\Http\Controllers;
  *     @OA\Contact(
  *         name="Nima",
  *         email="nima_8a@yahoo.com",
+ *     ),
+ * ),
+ *
+ * @OA\SecurityScheme(
+ *         securityScheme="bearerAuth",
+ *         type="http",
+ *         scheme="bearer",
+ *         bearerFormat="JWT"
  *     )
- * )
  */
 abstract class Controller
 {

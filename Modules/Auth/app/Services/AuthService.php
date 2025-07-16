@@ -5,6 +5,7 @@ namespace Modules\Auth\Services;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Modules\Auth\Services\Contracts\AuthServiceInterface;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthService implements AuthServiceInterface
 {
@@ -23,5 +24,16 @@ class AuthService implements AuthServiceInterface
             'user' => Auth::user(),
             'token' => $token,
         ];
+    }
+
+    public function logout(): bool
+    {
+        $token = JWTAuth::getToken();
+        $response = JWTAuth::invalidate($token);
+        if ($response) {
+            return true;
+        }
+
+        return false;
     }
 }
