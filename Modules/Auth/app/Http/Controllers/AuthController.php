@@ -2,6 +2,15 @@
 
 namespace Modules\Auth\Http\Controllers;
 
+/**
+ * @OA\SecurityScheme(
+ *     securityScheme="bearerAuth",
+ *     type="http",
+ *     scheme="bearer",
+ *     bearerFormat="JWT"
+ * )
+ */
+
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Lcobucci\JWT\Exception;
@@ -29,9 +38,10 @@ class AuthController extends Controller
      *         required=true,
      *
      *         @OA\JsonContent(
-     *             required={"name","email","password","password_confirmation"},
+     *             required={"name","username","email","password","password_confirmation"},
      *
      *             @OA\Property(property="name", type="string", example="John Doe"),
+     *             @OA\Property(property="username", type="string", example="johndoe"),
      *             @OA\Property(property="email", type="string", format="email", example="john@example.com"),
      *             @OA\Property(property="password", type="string", format="password", example="password"),
      *             @OA\Property(property="password_confirmation", type="string", format="password", example="password")
@@ -49,6 +59,7 @@ class AuthController extends Controller
      *             @OA\Property(property="data", type="object",
      *                 @OA\Property(property="id", type="integer", example=1),
      *                 @OA\Property(property="name", type="string", example="John Doe"),
+     *                 @OA\Property(property="username", type="string", example="johndoe"),
      *                 @OA\Property(property="email", type="string", example="john@example.com")
      *             )
      *         )
@@ -81,7 +92,7 @@ class AuthController extends Controller
      *             required={"login","password"},
      *
      *             @OA\Property(property="login", type="string", description="Username, email, or phone number of the user", example="johndoe"),
-     *             @OA\Property(property="password", type="string", description="User password", example="password123")
+     *             @OA\Property(property="password", type="string", description="User password", example="password")
      *         )
      *     ),
      *
