@@ -11,4 +11,6 @@ interface AuthServiceInterface
     public function logout();
 
     public function deleteAccount();
+
+    public function getUser();
 }

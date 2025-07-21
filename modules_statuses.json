@@ -1,4 +1,5 @@
 {
     "Auth": true,
-    "Category": true
+    "Category": true,
+    "Article": true
 }

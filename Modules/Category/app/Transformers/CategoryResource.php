@@ -25,7 +25,6 @@ class CategoryResource extends JsonResource
             'is_active' => $this->is_active,
             'created_at' => $this->created_at->diffForHumans(),
             'updated_at' => $this->updated_at->diffForHumans(),
-            'deleted_at' => $this->deleted_at?->toDateTimeString(),
         ], fn ($value) => ! is_null($value));
     }
 }

@@ -47,4 +47,9 @@ class AuthService implements AuthServiceInterface
 
         return true;
     }
+
+    public function getUser(): ?User
+    {
+        return Auth::user();
+    }
 }
