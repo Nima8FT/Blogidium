@@ -17,6 +17,7 @@ class TagController extends Controller
      *     summary="Get list of tags",
      *     tags={"Tags"},
      *     security={{"bearerAuth":{}}},
+     *
      *     @OA\Response(
      *         response=200,
      *         description="Tag list retrieved successfully."
@@ -39,13 +40,17 @@ class TagController extends Controller
      *     summary="Create a new tag",
      *     tags={"Tags"},
      *     security={{"bearerAuth":{}}},
+     *
      *     @OA\RequestBody(
      *         required=true,
+     *
      *         @OA\JsonContent(
      *             required={"name"},
+     *
      *             @OA\Property(property="name", type="string", example="Laravel")
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=200,
      *         description="Tag created successfully."
@@ -69,13 +74,16 @@ class TagController extends Controller
      *     summary="Get a single tag",
      *     tags={"Tags"},
      *     security={{"bearerAuth":{}}},
+     *
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
      *         required=true,
      *         description="Tag ID",
+     *
      *         @OA\Schema(type="integer", example=1)
      *     ),
+     *
      *     @OA\Response(
      *         response=200,
      *         description="Tag retrieved successfully."
@@ -96,19 +104,25 @@ class TagController extends Controller
      *     summary="Update a tag",
      *     tags={"Tags"},
      *     security={{"bearerAuth":{}}},
+     *
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
      *         required=true,
      *         description="Tag ID",
+     *
      *         @OA\Schema(type="integer", example=1)
      *     ),
+     *
      *     @OA\RequestBody(
      *         required=true,
+     *
      *         @OA\JsonContent(
+     *
      *             @OA\Property(property="name", type="string", example="Updated Tag Name")
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=200,
      *         description="Tag updated successfully."
@@ -132,13 +146,16 @@ class TagController extends Controller
      *     summary="Delete a tag",
      *     tags={"Tags"},
      *     security={{"bearerAuth":{}}},
+     *
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
      *         required=true,
      *         description="Tag ID",
+     *
      *         @OA\Schema(type="integer", example=1)
      *     ),
+     *
      *     @OA\Response(
      *         response=200,
      *         description="Tag deleted successfully."

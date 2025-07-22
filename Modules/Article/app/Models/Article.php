@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Article\Database\Factories\ArticleFactory;
 use Modules\Category\Models\Category;
+use Modules\Tag\Models\Tag;
 
 class Article extends Model
 {
@@ -42,5 +43,10 @@ class Article extends Model
     public function category()
     {
         return $this->belongsTo(Category::class, 'category_id', 'id');
+    }
+
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class, 'article_tag', 'article_id', 'tag_id');
     }
 }

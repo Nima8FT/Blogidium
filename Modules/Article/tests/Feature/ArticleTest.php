@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Modules\Article\Models\Article;
 use Modules\Category\Models\Category;
+use Modules\Tag\Models\Tag;
 use Tests\TestCase;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
@@ -43,6 +44,7 @@ class ArticleTest extends TestCase
                         'category_name',
                         'category_slug',
                     ],
+                    'tags' => [],
                     'is_published',
                     'published_at',
                     'created_at',
@@ -65,6 +67,7 @@ class ArticleTest extends TestCase
     {
         $user = User::factory()->create();
         $category = Category::factory()->create();
+        $tags = Tag::factory()->count(3)->create();
         $token = JWTAuth::fromUser($user);
 
         $response = $this->withHeaders([
@@ -73,6 +76,7 @@ class ArticleTest extends TestCase
             'title' => 'test title',
             'content' => 'test content',
             'category_id' => $category->id,
+            'tags' => $tags->pluck('id')->toArray(),
         ]);
 
         $response->assertStatus(200);
@@ -92,6 +96,7 @@ class ArticleTest extends TestCase
                     'category_name',
                     'category_slug',
                 ],
+                'tags' => [],
                 'created_at',
                 'updated_at',
             ],
@@ -147,6 +152,7 @@ class ArticleTest extends TestCase
                     'category_name',
                     'category_slug',
                 ],
+                'tags' => [],
                 'created_at',
                 'updated_at',
             ],
@@ -168,6 +174,7 @@ class ArticleTest extends TestCase
     public function test_it_can_update_article(): void
     {
         $user = User::factory()->create();
+        $tags = Tag::factory()->count(3)->create();
         $category = Category::factory()->create();
 
         $token = JWTAuth::fromUser($user);
@@ -182,6 +189,7 @@ class ArticleTest extends TestCase
             'Authorization' => 'Bearer '.$token,
         ])->putJson(route('api.articles.update', $article->id), [
             'title' => 'title',
+            'tags' => $tags->pluck('id')->toArray(),
         ]);
 
         $response->assertStatus(200);
@@ -201,6 +209,7 @@ class ArticleTest extends TestCase
                     'category_name',
                     'category_slug',
                 ],
+                'tags' => [],
                 'created_at',
                 'updated_at',
             ],

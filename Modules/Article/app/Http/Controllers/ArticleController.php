@@ -52,6 +52,16 @@ class ArticleController extends Controller
      *                         @OA\Property(property="category_name", type="string", example="Tech"),
      *                         @OA\Property(property="category_slug", type="string", example="tech")
      *                     ),
+     *                     @OA\Property(property="tags", type="array",
+     *
+     *                         @OA\Items(
+     *                             type="object",
+     *
+     *                             @OA\Property(property="id", type="integer", example=1),
+     *                             @OA\Property(property="name", type="string", example="Laravel"),
+     *                             @OA\Property(property="slug", type="string", example="laravel")
+     *                         )
+     *                     ),
      *                     @OA\Property(property="is_published", type="boolean", example=true),
      *                     @OA\Property(property="published_at", type="string", example="3 days ago"),
      *                     @OA\Property(property="created_at", type="string", example="2 weeks ago"),
@@ -112,6 +122,16 @@ class ArticleController extends Controller
      *                     @OA\Property(property="category_name", type="string", example="Tech"),
      *                     @OA\Property(property="category_slug", type="string", example="tech")
      *                 ),
+     *                 @OA\Property(property="tags", type="array",
+     *
+     *                     @OA\Items(
+     *                         type="object",
+     *
+     *                         @OA\Property(property="id", type="integer", example=1),
+     *                         @OA\Property(property="name", type="string", example="Laravel"),
+     *                         @OA\Property(property="slug", type="string", example="laravel")
+     *                     )
+     *                 ),
      *                 @OA\Property(property="is_published", type="boolean", example=true),
      *                 @OA\Property(property="published_at", type="string", example="just now"),
      *                 @OA\Property(property="created_at", type="string", example="just now"),
@@ -170,6 +190,16 @@ class ArticleController extends Controller
      *                     @OA\Property(property="category_name", type="string"),
      *                     @OA\Property(property="category_slug", type="string")
      *                 ),
+     *                 @OA\Property(property="tags", type="array",
+     *
+     *                     @OA\Items(
+     *                         type="object",
+     *
+     *                         @OA\Property(property="id", type="integer", example=1),
+     *                         @OA\Property(property="name", type="string", example="Laravel"),
+     *                         @OA\Property(property="slug", type="string", example="laravel")
+     *                     )
+     *                 ),
      *                 @OA\Property(property="created_at", type="string"),
      *                 @OA\Property(property="updated_at", type="string")
      *             )
@@ -223,7 +253,17 @@ class ArticleController extends Controller
      *                 @OA\Property(property="id", type="integer"),
      *                 @OA\Property(property="title", type="string"),
      *                 @OA\Property(property="content", type="string"),
-     *                 @OA\Property(property="updated_at", type="string")
+     *                 @OA\Property(property="updated_at", type="string"),
+     *                 @OA\Property(property="tags", type="array",
+     *
+     *                     @OA\Items(
+     *                         type="object",
+     *
+     *                         @OA\Property(property="id", type="integer", example=1),
+     *                         @OA\Property(property="name", type="string", example="Laravel"),
+     *                         @OA\Property(property="slug", type="string", example="laravel")
+     *                     )
+     *                 )
      *             )
      *         )
      *     )

@@ -15,6 +15,8 @@ class ArticleStoreRequest extends FormRequest
             'title' => 'required|string|min:3|max:255|unique:articles,title',
             'content' => 'required|string|min:3',
             'category_id' => 'required|integer|exists:categories,id',
+            'tags' => 'array',
+            'tags.*' => 'integer|exists:tags,id',
         ];
     }
 

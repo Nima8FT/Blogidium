@@ -74,6 +74,26 @@
                                                         },
                                                         "type": "object"
                                                     },
+                                                    "tags": {
+                                                        "type": "array",
+                                                        "items": {
+                                                            "properties": {
+                                                                "id": {
+                                                                    "type": "integer",
+                                                                    "example": 1
+                                                                },
+                                                                "name": {
+                                                                    "type": "string",
+                                                                    "example": "Laravel"
+                                                                },
+                                                                "slug": {
+                                                                    "type": "string",
+                                                                    "example": "laravel"
+                                                                }
+                                                            },
+                                                            "type": "object"
+                                                        }
+                                                    },
                                                     "is_published": {
                                                         "type": "boolean",
                                                         "example": true
@@ -197,6 +217,26 @@
                                                     },
                                                     "type": "object"
                                                 },
+                                                "tags": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "integer",
+                                                                "example": 1
+                                                            },
+                                                            "name": {
+                                                                "type": "string",
+                                                                "example": "Laravel"
+                                                            },
+                                                            "slug": {
+                                                                "type": "string",
+                                                                "example": "laravel"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                },
                                                 "is_published": {
                                                     "type": "boolean",
                                                     "example": true
@@ -297,6 +337,26 @@
                                                     },
                                                     "type": "object"
                                                 },
+                                                "tags": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "integer",
+                                                                "example": 1
+                                                            },
+                                                            "name": {
+                                                                "type": "string",
+                                                                "example": "Laravel"
+                                                            },
+                                                            "slug": {
+                                                                "type": "string",
+                                                                "example": "laravel"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                },
                                                 "created_at": {
                                                     "type": "string"
                                                 },
@@ -387,6 +447,26 @@
                                                 },
                                                 "updated_at": {
                                                     "type": "string"
+                                                },
+                                                "tags": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "integer",
+                                                                "example": 1
+                                                            },
+                                                            "name": {
+                                                                "type": "string",
+                                                                "example": "Laravel"
+                                                            },
+                                                            "slug": {
+                                                                "type": "string",
+                                                                "example": "laravel"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
                                                 }
                                             },
                                             "type": "object"

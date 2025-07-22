@@ -15,6 +15,8 @@ class ArticleUpdateRequest extends FormRequest
             'title' => 'string|min:3|max:255',
             'content' => 'string|min:3',
             'category_id' => 'integer|exists:categories,id',
+            'tags' => 'array',
+            'tags.*' => 'exists:tags,id',
         ];
     }
 

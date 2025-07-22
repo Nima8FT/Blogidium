@@ -31,8 +31,8 @@ class TagTest extends TestCase
                     'slug',
                     'created_at',
                     'updated_at',
-                ]
-            ]
+                ],
+            ],
         ]);
     }
 
@@ -53,7 +53,7 @@ class TagTest extends TestCase
                 'slug',
                 'created_at',
                 'updated_at',
-            ]
+            ],
         ]);
     }
 
@@ -83,7 +83,7 @@ class TagTest extends TestCase
                 'slug',
                 'created_at',
                 'updated_at',
-            ]
+            ],
         ]);
     }
 
@@ -109,11 +109,12 @@ class TagTest extends TestCase
                 'slug',
                 'created_at',
                 'updated_at',
-            ]
+            ],
         ]);
     }
 
-    public function test_it_cannot_update_tag_without_unique_name(): void {
+    public function test_it_cannot_update_tag_without_unique_name(): void
+    {
         $tag = Tag::factory()->create([
             'name' => 'test',
         ]);
@@ -125,18 +126,20 @@ class TagTest extends TestCase
         $response->assertStatus(422);
     }
 
-    public function test_it_can_delete_tag(): void {
+    public function test_it_can_delete_tag(): void
+    {
         $tag = Tag::factory()->create();
         $response = $this->deleteJson(route('api.tags.destroy', $tag->id));
         $response->assertStatus(200);
         $response->assertJsonStructure([
             'success',
             'message',
-            'data'
+            'data',
         ]);
     }
 
-    public function test_it_cannot_delete_tag_with_invalid_id(): void {
+    public function test_it_cannot_delete_tag_with_invalid_id(): void
+    {
         $response = $this->deleteJson(route('api.tags.destroy', 999));
         $response->assertStatus(404);
     }
