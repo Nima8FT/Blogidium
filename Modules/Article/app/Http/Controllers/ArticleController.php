@@ -24,18 +24,23 @@ class ArticleController extends Controller
      *     tags={"Articles"},
      *     summary="Get a list of articles",
      *     security={{"bearerAuth":{}}},
+     *
      *     @OA\Response(
      *         response=200,
      *         description="List of articles",
+     *
      *         @OA\JsonContent(
      *             type="object",
+     *
      *             @OA\Property(property="success", type="boolean", example=true),
      *             @OA\Property(property="message", type="string", example="Article list retrieved successfully."),
      *             @OA\Property(
      *                 property="data",
      *                 type="array",
+     *
      *                 @OA\Items(
      *                     type="object",
+     *
      *                     @OA\Property(property="id", type="integer", example=1),
      *                     @OA\Property(property="title", type="string", example="My First Article"),
      *                     @OA\Property(property="slug", type="string", example="my-first-article"),
@@ -67,27 +72,32 @@ class ArticleController extends Controller
         );
     }
 
-
     /**
      * @OA\Post(
      *     path="/api/articles",
      *     tags={"Articles"},
      *     summary="Create a new article",
      *     security={{"bearerAuth":{}}},
+     *
      *     @OA\RequestBody(
      *         required=true,
+     *
      *         @OA\JsonContent(
      *             required={"title", "content", "category_id"},
+     *
      *             @OA\Property(property="title", type="string", example="New Article"),
      *             @OA\Property(property="content", type="string", example="Article content here."),
      *             @OA\Property(property="category_id", type="integer", example=2)
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=200,
      *         description="Article created successfully",
+     *
      *         @OA\JsonContent(
      *             type="object",
+     *
      *             @OA\Property(property="success", type="boolean", example=true),
      *             @OA\Property(property="message", type="string", example="Article created successfully."),
      *             @OA\Property(property="data", type="object",
@@ -123,25 +133,29 @@ class ArticleController extends Controller
         );
     }
 
-
     /**
      * @OA\Get(
      *     path="/api/articles/{id}",
      *     tags={"Articles"},
      *     summary="Get article details",
      *     security={{"bearerAuth":{}}},
+     *
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
      *         required=true,
      *         description="Article ID",
+     *
      *         @OA\Schema(type="integer")
      *     ),
+     *
      *     @OA\Response(
      *         response=200,
      *         description="Article details fetched successfully",
+     *
      *         @OA\JsonContent(
      *             type="object",
+     *
      *             @OA\Property(property="success", type="boolean", example=true),
      *             @OA\Property(property="message", type="string", example="Article details fetched successfully."),
      *             @OA\Property(property="data", type="object",
@@ -171,31 +185,38 @@ class ArticleController extends Controller
         );
     }
 
-
     /**
      * @OA\Put(
      *     path="/api/articles/{id}",
      *     tags={"Articles"},
      *     summary="Update an existing article",
      *     security={{"bearerAuth":{}}},
+     *
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
      *         required=true,
      *         description="ID of the article",
+     *
      *         @OA\Schema(type="integer")
      *     ),
+     *
      *     @OA\RequestBody(
+     *
      *         @OA\JsonContent(
+     *
      *             @OA\Property(property="title", type="string", example="Updated title"),
      *             @OA\Property(property="content", type="string", example="Updated content"),
      *             @OA\Property(property="category_id", type="integer", example=1)
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=200,
      *         description="Article updated successfully",
+     *
      *         @OA\JsonContent(
+     *
      *             @OA\Property(property="success", type="boolean", example=true),
      *             @OA\Property(property="message", type="string", example="Article updated successfully."),
      *             @OA\Property(property="data", type="object",
@@ -225,25 +246,28 @@ class ArticleController extends Controller
         );
     }
 
-
-
     /**
      * @OA\Delete(
      *     path="/api/articles/{id}",
      *     tags={"Articles"},
      *     summary="Delete an article",
      *     security={{"bearerAuth":{}}},
+     *
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
      *         required=true,
      *         description="ID of the article to delete",
+     *
      *         @OA\Schema(type="integer")
      *     ),
+     *
      *     @OA\Response(
      *         response=200,
      *         description="Article deleted successfully",
+     *
      *         @OA\JsonContent(
+     *
      *             @OA\Property(property="success", type="boolean", example=true),
      *             @OA\Property(property="message", type="string", example="Article deleted successfully.")
      *         )
