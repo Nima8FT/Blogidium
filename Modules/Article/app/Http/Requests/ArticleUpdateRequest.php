@@ -17,6 +17,7 @@ class ArticleUpdateRequest extends FormRequest
             'category_id' => 'integer|exists:categories,id',
             'tags' => 'array',
             'tags.*' => 'exists:tags,id',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];
     }
 

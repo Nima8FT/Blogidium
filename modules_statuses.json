@@ -2,5 +2,6 @@
     "Auth": true,
     "Category": true,
     "Article": true,
-    "Tag": true
+    "Tag": true,
+    "Media": true
 }

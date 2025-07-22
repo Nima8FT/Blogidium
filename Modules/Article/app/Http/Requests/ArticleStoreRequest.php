@@ -17,6 +17,7 @@ class ArticleStoreRequest extends FormRequest
             'category_id' => 'required|integer|exists:categories,id',
             'tags' => 'array',
             'tags.*' => 'integer|exists:tags,id',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];
     }
 
