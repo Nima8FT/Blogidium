@@ -64,4 +64,9 @@ class Article extends Model
     {
         return $this->likedByUsers()->wherePivot('like', false)->count();
     }
+
+    public function savedByUsers()
+    {
+        return $this->belongsToMany(User::class, 'saves')->withTimestamps();
+    }
 }

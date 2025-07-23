@@ -97,4 +97,9 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->belongsToMany(Article::class, 'likes')->withPivot('like')->withTimestamps();
     }
+
+    public function savedArticles()
+    {
+        return $this->belongsToMany(Article::class, 'saves')->withTimestamps();
+    }
 }

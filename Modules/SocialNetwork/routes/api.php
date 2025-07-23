@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Modules\SocialNetwork\Http\Controllers\FollowController;
 use Modules\SocialNetwork\Http\Controllers\LikeController;
+use Modules\SocialNetwork\Http\Controllers\SaveController;
 
 Route::middleware('jwt.auth')->group(function () {
     // Follow System
@@ -14,4 +15,8 @@ Route::middleware('jwt.auth')->group(function () {
     // Like System
     Route::post('like/{article}', [LikeController::class, 'like'])->name('like');
     Route::post('dislike/{article}', [LikeController::class, 'dislike'])->name('dislike');
+
+    // Save System
+    Route::post('save/{article}', [SaveController::class, 'save'])->name('save');
+    Route::post('unsave/{article}', [SaveController::class, 'unsave'])->name('unsave');
 });
