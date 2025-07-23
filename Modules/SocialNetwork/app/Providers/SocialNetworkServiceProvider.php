@@ -5,7 +5,9 @@ namespace Modules\SocialNetwork\Providers;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Modules\SocialNetwork\Services\Contracts\FollowServiceInterface;
+use Modules\SocialNetwork\Services\Contracts\LikeServiceInterface;
 use Modules\SocialNetwork\Services\FollowService;
+use Modules\SocialNetwork\Services\LikeService;
 use Nwidart\Modules\Traits\PathNamespace;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
@@ -39,6 +41,7 @@ class SocialNetworkServiceProvider extends ServiceProvider
         $this->app->register(EventServiceProvider::class);
         $this->app->register(RouteServiceProvider::class);
         $this->app->bind(FollowServiceInterface::class, FollowService::class);
+        $this->app->bind(LikeServiceInterface::class, LikeService::class);
     }
 
     /**

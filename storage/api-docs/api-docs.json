@@ -1496,6 +1496,134 @@
                 ]
             }
         },
+        "/api/like/{article}": {
+            "post": {
+                "tags": [
+                    "Likes"
+                ],
+                "summary": "Like an article",
+                "description": "Set like status to true for the given article by authenticated user.",
+                "operationId": "likeArticle",
+                "parameters": [
+                    {
+                        "name": "article",
+                        "in": "path",
+                        "description": "ID of article to like",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Article liked successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "properties": {
+                                                "username": {
+                                                    "type": "string",
+                                                    "example": "johndoe"
+                                                },
+                                                "title": {
+                                                    "type": "string",
+                                                    "example": "My Awesome Article"
+                                                },
+                                                "like": {
+                                                    "type": "string",
+                                                    "example": "like"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "You have successfully liked this article."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/dislike/{article}": {
+            "post": {
+                "tags": [
+                    "Likes"
+                ],
+                "summary": "Dislike an article",
+                "description": "Set like status to false (dislike) for the given article by authenticated user.",
+                "operationId": "dislikeArticle",
+                "parameters": [
+                    {
+                        "name": "article",
+                        "in": "path",
+                        "description": "ID of article to dislike",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Article disliked successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "properties": {
+                                                "username": {
+                                                    "type": "string",
+                                                    "example": "johndoe"
+                                                },
+                                                "title": {
+                                                    "type": "string",
+                                                    "example": "My Awesome Article"
+                                                },
+                                                "like": {
+                                                    "type": "string",
+                                                    "example": "dislike"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "You have successfully disliked this article."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/tags": {
             "get": {
                 "tags": [
@@ -1685,6 +1813,10 @@
         {
             "name": "Follow",
             "description": "Follow"
+        },
+        {
+            "name": "Likes",
+            "description": "Likes"
         },
         {
             "name": "Tags",

@@ -27,6 +27,8 @@ class ArticleResource extends JsonResource
                 'category_slug' => $this->category->slug,
             ] : null,
             'tags' => $this->tags->pluck('name'),
+            'likes' => $this->likesCount(),
+            'dislikes' => $this->dislikesCount(),
             'is_published' => $this->is_published,
             'published_at' => Carbon::parse($this->published_at)->diffForHumans(),
             'created_at' => Carbon::parse($this->created_at)->diffForHumans(),

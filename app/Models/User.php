@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
+use Modules\Article\Models\Article;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class User extends Authenticatable implements JWTSubject
@@ -90,5 +91,10 @@ class User extends Authenticatable implements JWTSubject
     public function followers()
     {
         return $this->belongsToMany(User::class, 'follower_user', 'follower_id', 'user_id')->withTimestamps();
+    }
+
+    public function likedArticles()
+    {
+        return $this->belongsToMany(Article::class, 'likes')->withPivot('like')->withTimestamps();
     }
 }

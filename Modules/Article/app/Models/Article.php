@@ -49,4 +49,19 @@ class Article extends Model
     {
         return $this->belongsToMany(Tag::class, 'article_tag', 'article_id', 'tag_id');
     }
+
+    public function likedByUsers()
+    {
+        return $this->belongsToMany(User::class, 'likes')->withPivot('like')->withTimestamps();
+    }
+
+    public function likesCount()
+    {
+        return $this->likedByUsers()->wherePivot('like', true)->count();
+    }
+
+    public function dislikesCount()
+    {
+        return $this->likedByUsers()->wherePivot('like', false)->count();
+    }
 }
