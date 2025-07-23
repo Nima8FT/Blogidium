@@ -16,7 +16,7 @@ class MediaTest extends TestCase
     {
         Storage::fake('public');
         $fakeImage = UploadedFile::fake()->image('test_image.jpg');
-        $service = new ImageUploadService();
+        $service = new ImageUploadService;
         $result = $service->imageUpload($fakeImage, 'articles');
         $this->assertStringStartsWith('public/articles/', $result);
         $this->assertStringEndsWith('.jpg', $result);
@@ -30,8 +30,7 @@ class MediaTest extends TestCase
         $fakeFile = UploadedFile::fake()->create('not_an_image.txt', 1, 'text/plain');
         $this->expectException(\Exception::class);
         $this->expectExceptionMessage('Invalid image file.');
-        $service = new ImageUploadService();
+        $service = new ImageUploadService;
         $service->imageUpload($fakeFile, 'articles');
     }
-
 }

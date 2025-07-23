@@ -3,5 +3,6 @@
     "Category": true,
     "Article": true,
     "Tag": true,
-    "Media": true
+    "Media": true,
+    "SocialNetwork": true
 }

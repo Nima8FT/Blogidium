@@ -1,20 +1,22 @@
 <?php
 
-namespace Modules\Media\Providers;
+namespace Modules\SocialNetwork\Providers;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use Modules\SocialNetwork\Services\Contracts\FollowServiceInterface;
+use Modules\SocialNetwork\Services\FollowService;
 use Nwidart\Modules\Traits\PathNamespace;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 
-class MediaServiceProvider extends ServiceProvider
+class SocialNetworkServiceProvider extends ServiceProvider
 {
     use PathNamespace;
 
-    protected string $name = 'Media';
+    protected string $name = 'SocialNetwork';
 
-    protected string $nameLower = 'media';
+    protected string $nameLower = 'socialnetwork';
 
     /**
      * Boot the application events.
@@ -36,6 +38,7 @@ class MediaServiceProvider extends ServiceProvider
     {
         $this->app->register(EventServiceProvider::class);
         $this->app->register(RouteServiceProvider::class);
+        $this->app->bind(FollowServiceInterface::class, FollowService::class);
     }
 
     /**
