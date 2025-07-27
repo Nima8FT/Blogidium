@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Article\Database\Factories\ArticleFactory;
 use Modules\Category\Models\Category;
+use Modules\SocialNetwork\Models\Comment;
 use Modules\Tag\Models\Tag;
 
 class Article extends Model
@@ -68,5 +69,10 @@ class Article extends Model
     public function savedByUsers()
     {
         return $this->belongsToMany(User::class, 'saves')->withTimestamps();
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
     }
 }

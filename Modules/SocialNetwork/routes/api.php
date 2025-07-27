@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Modules\SocialNetwork\Http\Controllers\CommentController;
 use Modules\SocialNetwork\Http\Controllers\FollowController;
 use Modules\SocialNetwork\Http\Controllers\LikeController;
 use Modules\SocialNetwork\Http\Controllers\SaveController;
@@ -19,4 +20,7 @@ Route::middleware('jwt.auth')->group(function () {
     // Save System
     Route::post('save/{article}', [SaveController::class, 'save'])->name('save');
     Route::post('unsave/{article}', [SaveController::class, 'unsave'])->name('unsave');
+
+    // Comment System
+    Route::apiResource('articles/{article}/comments', CommentController::class)->names('comments');
 });

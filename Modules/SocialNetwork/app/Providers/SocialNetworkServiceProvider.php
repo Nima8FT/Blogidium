@@ -4,6 +4,8 @@ namespace Modules\SocialNetwork\Providers;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use Modules\SocialNetwork\Services\CommentService;
+use Modules\SocialNetwork\Services\Contracts\CommentServiceInterface;
 use Modules\SocialNetwork\Services\Contracts\FollowServiceInterface;
 use Modules\SocialNetwork\Services\Contracts\LikeServiceInterface;
 use Modules\SocialNetwork\Services\Contracts\SaveServiceInterface;
@@ -45,6 +47,7 @@ class SocialNetworkServiceProvider extends ServiceProvider
         $this->app->bind(FollowServiceInterface::class, FollowService::class);
         $this->app->bind(LikeServiceInterface::class, LikeService::class);
         $this->app->bind(SaveServiceInterface::class, SaveService::class);
+        $this->app->bind(CommentServiceInterface::class, CommentService::class);
     }
 
     /**
