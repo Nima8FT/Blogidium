@@ -4,5 +4,6 @@
     "Article": true,
     "Tag": true,
     "Media": true,
-    "SocialNetwork": true
+    "SocialNetwork": true,
+    "Profile": true
 }

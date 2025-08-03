@@ -14,7 +14,7 @@ class RegisterTest extends TestCase
      */
     public function test_user_can_register_successfully(): void
     {
-        $response = $this->post(route('api.register'), [
+        $response = $this->post(route('register'), [
             'name' => 'John Doe',
             'username' => 'johndoe',
             'email' => 'john@example.com',
@@ -43,7 +43,7 @@ class RegisterTest extends TestCase
 
     public function test_user_cannot_register_invalid_data(): void
     {
-        $response = $this->postJson(route('api.register'), [
+        $response = $this->postJson(route('register'), [
             'name' => '',
             'username' => 123,
             'email' => 'bad-email',

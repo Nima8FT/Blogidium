@@ -21,7 +21,7 @@ class LogoutTest extends TestCase
 
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '.$token,
-        ])->postJson(route('api.logout'));
+        ])->postJson(route('logout'));
 
         $response->assertStatus(200);
 
@@ -33,7 +33,7 @@ class LogoutTest extends TestCase
 
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '.$token,
-        ])->postJson(route('api.logout'));
+        ])->postJson(route('logout'));
 
         $response->assertStatus(401);
     }
@@ -42,7 +42,7 @@ class LogoutTest extends TestCase
     {
         $response = $this->withHeaders([
             'Authorization' => 'Bearer fake-token',
-        ])->postJson(route('api.logout'));
+        ])->postJson(route('logout'));
 
         $response->assertStatus(401);
     }

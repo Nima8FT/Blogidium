@@ -21,7 +21,7 @@ class DeleteAccountTest extends TestCase
 
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '.$token,
-        ])->deleteJson(route('api.delete-account'));
+        ])->deleteJson(route('delete-account'));
 
         $response->assertStatus(200);
 
@@ -40,7 +40,7 @@ class DeleteAccountTest extends TestCase
     {
         $response = $this->withHeaders([
             'Authorization' => 'Bearer fake-token',
-        ])->deleteJson(route('api.delete-account'));
+        ])->deleteJson(route('delete-account'));
         $response->assertStatus(401);
     }
 }

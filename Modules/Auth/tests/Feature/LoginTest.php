@@ -22,14 +22,14 @@ class LoginTest extends TestCase
             'password' => 'password',
         ]);
 
-        $response = $this->postJson(route('api.login'), [
+        $response = $this->postJson(route('login'), [
             'login' => 'john@example.com',
             'password' => 'password',
         ]);
 
         $this->withHeaders([
             'Authorization' => 'Bearer '.$response->json('token'),
-        ])->getJson(route('api.profile'))->assertOk();
+        ])->getJson(route('profile'))->assertOk();
 
         $response->assertOk();
 
@@ -50,7 +50,7 @@ class LoginTest extends TestCase
     {
         $response = $this->withHeaders([
             'Authorization' => 'Bearer fake-token',
-        ])->getJson(route('api.profile'));
+        ])->getJson(route('profile'));
 
         $response->assertStatus(401);
     }
@@ -64,7 +64,7 @@ class LoginTest extends TestCase
             'password' => 'password',
         ]);
 
-        $response = $this->postJson(route('api.login'), [
+        $response = $this->postJson(route('login'), [
             'login' => 'john@example.com',
             'password' => 'wrong-password',
         ]);
