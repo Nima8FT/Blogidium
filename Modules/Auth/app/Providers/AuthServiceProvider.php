@@ -6,6 +6,10 @@ use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Modules\Auth\Services\AuthService;
 use Modules\Auth\Services\Contracts\AuthServiceInterface;
+use Modules\Auth\Services\Contracts\PhoneVerificationInterface;
+use Modules\Auth\Services\Contracts\SmsSenderInterface;
+use Modules\Auth\Services\MeliPayamakSmsService;
+use Modules\Auth\Services\PhoneVerificationService;
 use Nwidart\Modules\Traits\PathNamespace;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
@@ -39,6 +43,8 @@ class AuthServiceProvider extends ServiceProvider
         $this->app->register(EventServiceProvider::class);
         $this->app->register(RouteServiceProvider::class);
         $this->app->bind(AuthServiceInterface::class, AuthService::class);
+        $this->app->bind(SmsSenderInterface::class, MeliPayamakSmsService::class);
+        $this->app->bind(PhoneVerificationInterface::class, PhoneVerificationService::class);
     }
 
     /**

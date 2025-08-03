@@ -870,6 +870,322 @@
                 ]
             }
         },
+        "/api/email/verification-notification": {
+            "post": {
+                "tags": [
+                    "Email Verification"
+                ],
+                "summary": "Send verification email",
+                "description": "Send a verification email to the authenticated user's email address.",
+                "operationId": "67b2cd17c6024121d076ad06a140db1a",
+                "responses": {
+                    "200": {
+                        "description": "Verification email has been sent successfully.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Verification email has been sent successfully."
+                                        },
+                                        "data": {
+                                            "type": "string",
+                                            "example": "user@example.com"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/email/verify/{id}/{hash}": {
+            "post": {
+                "tags": [
+                    "Email Verification"
+                ],
+                "summary": "Verify email address",
+                "operationId": "2e9d11e657c3ef1f1b369ea8246236a6",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "User ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    },
+                    {
+                        "name": "hash",
+                        "in": "path",
+                        "description": "Email verification hash (only the hash, without query string)",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "a410347aabe0039597cb405f771f043d411e4167"
+                        }
+                    },
+                    {
+                        "name": "expires",
+                        "in": "query",
+                        "description": "Expiration timestamp of the verification link",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1754228035
+                        }
+                    },
+                    {
+                        "name": "signature",
+                        "in": "query",
+                        "description": "Signed hash for verification link",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "c0ec9a6c0589a488aa5513ef918802f675d85340ce5bfa59efa001f6033bde84"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Email verified successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Your email has been successfully verified."
+                                        },
+                                        "data": {
+                                            "type": "string",
+                                            "example": "user@example.com"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Unauthorized or invalid verification link",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "This action is unauthorized."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/phone/send-code": {
+            "post": {
+                "tags": [
+                    "Phone Verification"
+                ],
+                "summary": "Send phone verification code",
+                "description": "Send phone verification code to the authenticated user's phone number.",
+                "operationId": "9c6a52f66c362fe0f743354376d6d5ce",
+                "responses": {
+                    "200": {
+                        "description": "Verification code sent successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The message has been sent successfully."
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "user": {
+                                                    "properties": {
+                                                        "username": {
+                                                            "type": "string",
+                                                            "example": "john_doe"
+                                                        },
+                                                        "phone": {
+                                                            "type": "string",
+                                                            "example": "09123456789"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                },
+                                                "code": {
+                                                    "type": "string",
+                                                    "example": "123456"
+                                                },
+                                                "expires_at": {
+                                                    "type": "string",
+                                                    "example": "5 minutes from now"
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "example": "just now"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "example": "just now"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/phone/verify-code": {
+            "post": {
+                "tags": [
+                    "Phone Verification"
+                ],
+                "summary": "Verify phone verification code",
+                "description": "Verify the code sent to the authenticated user's phone.",
+                "operationId": "d39d9a76305f65d285b66f7c104f8959",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "code"
+                                ],
+                                "properties": {
+                                    "code": {
+                                        "type": "string",
+                                        "example": "123456"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Phone number successfully verified",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Your phone number has been successfully verified."
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "username": {
+                                                    "type": "string",
+                                                    "example": "john_doe"
+                                                },
+                                                "phone": {
+                                                    "type": "string",
+                                                    "example": "09123456789"
+                                                },
+                                                "phone_verified_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2025-08-03T14:25:00Z"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Invalid or expired code",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The verification code you entered is invalid or expired."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/categories": {
             "get": {
                 "tags": [
@@ -2184,6 +2500,14 @@
         {
             "name": "Auth",
             "description": "Auth"
+        },
+        {
+            "name": "Email Verification",
+            "description": "Email Verification"
+        },
+        {
+            "name": "Phone Verification",
+            "description": "Phone Verification"
         },
         {
             "name": "Categories",

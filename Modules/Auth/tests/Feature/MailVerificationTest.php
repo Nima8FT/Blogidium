@@ -19,7 +19,7 @@ class MailVerificationTest extends TestCase
         $token = JWTAuth::fromUser($user);
 
         $response = $this->withHeader(
-            'Authorization', 'Bearer ' . $token
+            'Authorization', 'Bearer '.$token
         )->postJson(route('mail.notification'));
 
         $response->assertStatus(200);
@@ -27,7 +27,7 @@ class MailVerificationTest extends TestCase
         $response->assertJsonStructure([
             'success',
             'message',
-            'data'
+            'data',
         ]);
 
         $verificationUrl = URL::temporarySignedRoute(
@@ -37,7 +37,7 @@ class MailVerificationTest extends TestCase
         );
 
         $response = $this->withHeader(
-            'Authorization', 'Bearer ' . $token
+            'Authorization', 'Bearer '.$token
         )->postJson($verificationUrl);
 
         $response->assertStatus(200);
@@ -45,16 +45,17 @@ class MailVerificationTest extends TestCase
         $response->assertJsonStructure([
             'success',
             'message',
-            'data'
+            'data',
         ]);
     }
 
-    public function test_wrong_url_for_verification_email() {
+    public function test_wrong_url_for_verification_email()
+    {
         $user = User::factory()->unverified()->create();
         $token = JWTAuth::fromUser($user);
 
         $response = $this->withHeader(
-            'Authorization', 'Bearer ' . $token
+            'Authorization', 'Bearer '.$token
         )->postJson(route('mail.notification'));
 
         $response->assertStatus(200);
@@ -62,11 +63,11 @@ class MailVerificationTest extends TestCase
         $response->assertJsonStructure([
             'success',
             'message',
-            'data'
+            'data',
         ]);
 
         $response = $this->withHeader(
-            'Authorization', 'Bearer ' . $token
+            'Authorization', 'Bearer '.$token
         )->postJson('wrong-url');
 
         $response->assertStatus(404);
