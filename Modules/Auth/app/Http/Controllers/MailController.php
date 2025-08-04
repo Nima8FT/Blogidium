@@ -53,43 +53,55 @@ class MailController extends Controller
      *         in="path",
      *         required=true,
      *         description="User ID",
+     *
      *         @OA\Schema(type="integer", example=1)
      *     ),
+     *
      *     @OA\Parameter(
      *         name="hash",
      *         in="path",
      *         required=true,
      *         description="Email verification hash (only the hash, without query string)",
+     *
      *         @OA\Schema(type="string", example="a410347aabe0039597cb405f771f043d411e4167")
      *     ),
+     *
      *     @OA\Parameter(
      *         name="expires",
      *         in="query",
      *         required=true,
      *         description="Expiration timestamp of the verification link",
+     *
      *         @OA\Schema(type="integer", example=1754228035)
      *     ),
+     *
      *     @OA\Parameter(
      *         name="signature",
      *         in="query",
      *         required=true,
      *         description="Signed hash for verification link",
+     *
      *         @OA\Schema(type="string", example="c0ec9a6c0589a488aa5513ef918802f675d85340ce5bfa59efa001f6033bde84")
      *     ),
      *
      *     @OA\Response(
      *         response=200,
      *         description="Email verified successfully",
+     *
      *         @OA\JsonContent(
+     *
      *             @OA\Property(property="success", type="boolean", example=true),
      *             @OA\Property(property="message", type="string", example="Your email has been successfully verified."),
      *             @OA\Property(property="data", type="string", example="user@example.com")
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=403,
      *         description="Unauthorized or invalid verification link",
+     *
      *         @OA\JsonContent(
+     *
      *             @OA\Property(property="success", type="boolean", example=false),
      *             @OA\Property(property="message", type="string", example="This action is unauthorized.")
      *         )

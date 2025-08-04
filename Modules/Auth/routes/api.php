@@ -4,9 +4,16 @@ use Illuminate\Support\Facades\Route;
 use Modules\Auth\Http\Controllers\AuthController;
 use Modules\Auth\Http\Controllers\MailController;
 use Modules\Auth\Http\Controllers\PhoneVerificationController;
+use Modules\Auth\Http\Controllers\ResetPasswordController;
 
-Route::post('register', [AuthController::class, 'register'])->name('register');
-Route::post('login', [AuthController::class, 'login'])->name('login');
+Route::middleware(['guest'])->group(function () {
+    Route::post('register', [AuthController::class, 'register'])->name('register');
+    Route::post('login', [AuthController::class, 'login'])->name('login');
+
+    // reset password
+    Route::post('/forgot-password', [ResetPasswordController::class, 'forgotPassword'])->name('password.email');
+    Route::post('/reset-password', [ResetPasswordController::class, 'resetPassword'])->name('password.reset');
+});
 
 Route::middleware('jwt.auth')->group(function () {
     Route::post('logout', [AuthController::class, 'logout'])->name('logout');
