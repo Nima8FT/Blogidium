@@ -5,6 +5,7 @@ use Modules\Auth\Http\Controllers\AuthController;
 use Modules\Auth\Http\Controllers\MailController;
 use Modules\Auth\Http\Controllers\PhoneVerificationController;
 use Modules\Auth\Http\Controllers\ResetPasswordController;
+use Modules\Auth\Http\Controllers\SocialLoginController;
 
 Route::middleware(['guest'])->group(function () {
     Route::post('register', [AuthController::class, 'register'])->name('register');
@@ -13,6 +14,9 @@ Route::middleware(['guest'])->group(function () {
     // reset password
     Route::post('/forgot-password', [ResetPasswordController::class, 'forgotPassword'])->name('password.email');
     Route::post('/reset-password', [ResetPasswordController::class, 'resetPassword'])->name('password.reset');
+
+    // social login
+    Route::post('/auth/{provider}/callback', [SocialLoginController::class, 'handleCallback'])->name('social.login');
 });
 
 Route::middleware('jwt.auth')->group(function () {

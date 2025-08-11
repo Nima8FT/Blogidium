@@ -9,9 +9,11 @@ use Modules\Auth\Services\Contracts\AuthServiceInterface;
 use Modules\Auth\Services\Contracts\PhoneVerificationInterface;
 use Modules\Auth\Services\Contracts\ResetPasswordInterface;
 use Modules\Auth\Services\Contracts\SmsSenderInterface;
+use Modules\Auth\Services\Contracts\SocialLoginServiceInterface;
 use Modules\Auth\Services\MeliPayamakSmsService;
 use Modules\Auth\Services\PhoneVerificationService;
 use Modules\Auth\Services\ResetPasswordService;
+use Modules\Auth\Services\SocialLoginService;
 use Nwidart\Modules\Traits\PathNamespace;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
@@ -48,6 +50,7 @@ class AuthServiceProvider extends ServiceProvider
         $this->app->bind(SmsSenderInterface::class, MeliPayamakSmsService::class);
         $this->app->bind(PhoneVerificationInterface::class, PhoneVerificationService::class);
         $this->app->bind(ResetPasswordInterface::class, ResetPasswordService::class);
+        $this->app->bind(SocialLoginServiceInterface::class, SocialLoginService::class);
     }
 
     /**
