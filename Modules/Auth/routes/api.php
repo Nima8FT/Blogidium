@@ -6,6 +6,7 @@ use Modules\Auth\Http\Controllers\MailController;
 use Modules\Auth\Http\Controllers\PhoneVerificationController;
 use Modules\Auth\Http\Controllers\ResetPasswordController;
 use Modules\Auth\Http\Controllers\SocialLoginController;
+use Modules\Auth\Http\Controllers\TwoFAController;
 
 Route::middleware(['guest'])->group(function () {
     Route::post('register', [AuthController::class, 'register'])->name('register');
@@ -17,6 +18,9 @@ Route::middleware(['guest'])->group(function () {
 
     // social login
     Route::post('/auth/{provider}/callback', [SocialLoginController::class, 'handleCallback'])->name('social.login');
+
+    // two factor authentication
+    Route::post('2fa/verify', [TwoFAController::class, 'verifyTwoFA'])->name('2fa.verify');
 });
 
 Route::middleware('jwt.auth')->group(function () {
@@ -31,4 +35,8 @@ Route::middleware('jwt.auth')->group(function () {
     // phone verification
     Route::post('phone/send-code', [PhoneVerificationController::class, 'sendCode'])->name('phone.send-code');
     Route::post('phone/verify-code', [PhoneVerificationController::class, 'verifyCode'])->name('phone.verify-code');
+
+    // two factor authentication
+    Route::post('2fa/enable', [TwoFAController::class, 'enableTwoFA'])->name('2fa.enable');
+    Route::post('2fa/disable', [TwoFAController::class, 'disableTwoFA'])->name('2fa.disable');
 });

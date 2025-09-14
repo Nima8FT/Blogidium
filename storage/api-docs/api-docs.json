@@ -1479,6 +1479,196 @@
                 }
             }
         },
+        "/api/2fa/enable": {
+            "post": {
+                "tags": [
+                    "TwoFA"
+                ],
+                "summary": "Enable Two-Factor Authentication (2FA) for the authenticated user",
+                "operationId": "f30bbaf635ac0087ec571a392e2f49c4",
+                "responses": {
+                    "200": {
+                        "description": "2FA enabled successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Two-factor authentication has been enabled successfully."
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "secret": {
+                                                    "type": "string",
+                                                    "example": "RBA62YCLEKS3VMMI"
+                                                },
+                                                "qr_code": {
+                                                    "type": "string",
+                                                    "example": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA..."
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/2fa/disable": {
+            "post": {
+                "tags": [
+                    "TwoFA"
+                ],
+                "summary": "Disable Two-Factor Authentication (2FA) for the authenticated user",
+                "operationId": "02821cdb043bedfba2fbd062e9aa8cf2",
+                "responses": {
+                    "200": {
+                        "description": "2FA disabled successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Two-factor authentication has been disabled successfully."
+                                        },
+                                        "data": {
+                                            "type": "null",
+                                            "example": null
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/2fa/verify": {
+            "post": {
+                "tags": [
+                    "TwoFA"
+                ],
+                "summary": "Verify the 2FA code for the authenticated user",
+                "operationId": "ff49755ca049b2571cf75ad17a1f3ec6",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "token": {
+                                        "type": "string",
+                                        "example": "a1b2c3d4e5f6..."
+                                    },
+                                    "otp": {
+                                        "type": "string",
+                                        "example": "123456"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "2FA verified successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Two-factor authentication verified successfully."
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "John Doe"
+                                                },
+                                                "email": {
+                                                    "type": "string",
+                                                    "example": "john@example.com"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "token": {
+                                            "type": "string",
+                                            "example": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9..."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid or expired verification code",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The provided verification code is invalid or expired."
+                                        },
+                                        "data": {
+                                            "type": "null",
+                                            "example": null
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/categories": {
             "get": {
                 "tags": [
@@ -2832,6 +3022,10 @@
         {
             "name": "Social Login",
             "description": "Social Login"
+        },
+        {
+            "name": "TwoFA",
+            "description": "TwoFA"
         },
         {
             "name": "Categories",

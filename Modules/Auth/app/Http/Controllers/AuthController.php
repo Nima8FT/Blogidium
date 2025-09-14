@@ -17,6 +17,7 @@ use Lcobucci\JWT\Exception;
 use Modules\Auth\Http\Requests\LoginRequest;
 use Modules\Auth\Http\Requests\RegisterRequest;
 use Modules\Auth\Services\Contracts\AuthServiceInterface;
+use Modules\Auth\Services\Contracts\TwoFAServiceInterface;
 use Modules\Auth\Services\LoginFieldDetector;
 use Modules\Auth\Services\ResponseBuilder;
 use Modules\Auth\Transformers\UserResource;
@@ -25,7 +26,8 @@ class AuthController extends Controller
 {
     public function __construct(
         private AuthServiceInterface $authService,
-        private LoginFieldDetector $loginFieldDetector
+        private LoginFieldDetector $loginFieldDetector,
+        private TwoFAServiceInterface $twoFAService,
     ) {}
 
     /**
@@ -139,10 +141,20 @@ class AuthController extends Controller
             return ResponseBuilder::error('Invalid credentials. Please check your username/email/phone and password.');
         }
 
+        $twoFA = $this->twoFAService->checkTwoFA($result['user']);
+
+        if (! $twoFA) {
+            return ResponseBuilder::success(
+                new UserResource($result['user']),
+                'User logged in successfully.',
+                $result['token']
+            );
+        }
+
         return ResponseBuilder::success(
             new UserResource($result['user']),
-            'User logged in successfully.',
-            $result['token']
+            'Two-Factor Authentication (2FA) is enabled. Please enter the 6-digit verification code from your authenticator app to complete login.',
+            $twoFA->temp_token
         );
     }
 

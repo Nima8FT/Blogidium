@@ -16,6 +16,8 @@
         "laravel/socialite": "^5.23",
         "laravel/tinker": "^2.10.1",
         "nwidart/laravel-modules": "^12.0",
+        "pragmarx/google2fa-laravel": "^2.3",
+        "simplesoftwareio/simple-qrcode": "^4.2",
         "tymon/jwt-auth": "^2.2",
         "zircote/swagger-php": "^5.1"
     },
