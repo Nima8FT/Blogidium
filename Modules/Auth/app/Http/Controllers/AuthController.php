@@ -17,6 +17,7 @@ use Lcobucci\JWT\Exception;
 use Modules\Auth\Http\Requests\LoginRequest;
 use Modules\Auth\Http\Requests\RegisterRequest;
 use Modules\Auth\Services\Contracts\AuthServiceInterface;
+use Modules\Auth\Services\Contracts\CaptchaServiceInterface;
 use Modules\Auth\Services\Contracts\TwoFAServiceInterface;
 use Modules\Auth\Services\LoginFieldDetector;
 use Modules\Auth\Services\ResponseBuilder;
@@ -28,6 +29,7 @@ class AuthController extends Controller
         private AuthServiceInterface $authService,
         private LoginFieldDetector $loginFieldDetector,
         private TwoFAServiceInterface $twoFAService,
+        private CaptchaServiceInterface $captchaService,
     ) {}
 
     /**
@@ -143,6 +145,11 @@ class AuthController extends Controller
 
         $twoFA = $this->twoFAService->checkTwoFA($result['user']);
 
+        // create captcha section get token from front and replace token and check token & continue
+        // get token from page index.blade.php
+        //        $tokenCaptcha = '0.cRBrYn9DHMYZWM2BFm_JeBpwd0WJLMr730mv8pjiEea_c95lsKJn0tGSq6KHLZjs8DbmJjfImVX0LRe64XfDeUTewebOrRla-RfSfT6_DfTjk6U9z01NrFIrBzyF5d-HubYk9k779v41JaDv3ATZj4pKug_dG1cgqDr-YrMFL_EzfGblMlukQ-y77TZk4g-u34L2qiUi2hBWOimifEv7SxNylNoRv6aMPYYrLp30b1PhMHS-S-YLfOytdp20j4Etek8szKPjqLAyaEnbSTz43j5beeklHI9Epq04vHlwxRGSgaAmRSdbzIrzXUy9Ildp0I7Po-z0OQxiIRtu0bn4D6pq6Q776yUsAYdRM86hOWc1O9Nm5fLdJ4sUnVHLV0FSfFnUUH3skW-eHi71KhNz2L01IBA6m6PsP-4tcf4FyI4Fc631wBMjXDyUvVaVlJsVH6XGO99sR00AVXEUpyUAe9epO-MgeWgXzqxcxshoq4znKYFmLq0mTnFRbG2XUsFJE8AKX47kEP6QAqn5QH-xGIM4O02mB1lNni0HVsaji4QsG3956d_xU9lwOjqpyH9-9hnpW0a24yFAIjwWdN3v0jIyQ8bPDZ1PmsCwvt_Ltt5e8Xm3eiTEi5lQzeQ6aZAnV_k3n2K7kuIW6dxgr5vpzbw291p1WHJaUT-TEOVpQmp1ajADy2emuKV52Fh2Pszhdvic0q9bYNVQe4RFVdF46fcCLOhm5RNQ9TKA3-_ErZ53eZSvl869osvKLJphIdqa3O_GJ3qUMpOpxABgeqyKNxUrZ1BNqbGe6wEo1DeTycd4FMI2XjSLLJ4L92sHH7XpBaawx7MWYVqClBGS2lOFWSpYht5bcNhSsQlcOH1Kgwc1-CeQ4eMND0SaStJ6woetQvdyHyS951qpY8b5fYrpoA.7zhFkgL8UWbNCXr7iL0VWA.618ca5146db7207619549b9c95550e54906ae6870d2ba099962b566d2e389487';
+        //        $captcha = $this->captchaService->verifyToken($tokenCaptcha);
+        //        if ($captcha) {
         if (! $twoFA) {
             return ResponseBuilder::success(
                 new UserResource($result['user']),
@@ -156,6 +163,7 @@ class AuthController extends Controller
             'Two-Factor Authentication (2FA) is enabled. Please enter the 6-digit verification code from your authenticator app to complete login.',
             $twoFA->temp_token
         );
+        //        }
     }
 
     /**

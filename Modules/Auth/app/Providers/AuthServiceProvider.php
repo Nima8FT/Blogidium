@@ -5,7 +5,9 @@ namespace Modules\Auth\Providers;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Modules\Auth\Services\AuthService;
+use Modules\Auth\Services\CaptchaService;
 use Modules\Auth\Services\Contracts\AuthServiceInterface;
+use Modules\Auth\Services\Contracts\CaptchaServiceInterface;
 use Modules\Auth\Services\Contracts\PhoneVerificationInterface;
 use Modules\Auth\Services\Contracts\ResetPasswordInterface;
 use Modules\Auth\Services\Contracts\SmsSenderInterface;
@@ -54,6 +56,7 @@ class AuthServiceProvider extends ServiceProvider
         $this->app->bind(ResetPasswordInterface::class, ResetPasswordService::class);
         $this->app->bind(SocialLoginServiceInterface::class, SocialLoginService::class);
         $this->app->bind(TwoFAServiceInterface::class, TwoFAService::class);
+        $this->app->bind(CaptchaServiceInterface::class, CaptchaService::class);
     }
 
     /**

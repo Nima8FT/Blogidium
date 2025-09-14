@@ -47,4 +47,9 @@ return [
         'redirect' => env('GOOGLE_REDIRECT_URI'),
     ],
 
+    'turnstile' => [
+        'site_key' => env('CLOUDFLARE_SITE_KEY'),
+        'secret' => env('CLOUDFLARE_SECRET_KEY'),
+    ],
+
 ];
