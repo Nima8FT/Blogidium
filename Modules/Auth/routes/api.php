@@ -26,7 +26,6 @@ Route::middleware(['guest'])->group(function () {
 Route::middleware('jwt.auth')->group(function () {
     Route::post('logout', [AuthController::class, 'logout'])->name('logout');
     Route::delete('delete-account', [AuthController::class, 'deleteAccount'])->name('delete-account');
-    Route::get('profile', [AuthController::class, 'profile'])->name('profile');
 
     // email verification send
     Route::post('email/verification-notification', [MailController::class, 'sendNotificationMail'])->middleware(['throttle:5,1'])->name('mail.notification');
