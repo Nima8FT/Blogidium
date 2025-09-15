@@ -3,6 +3,8 @@
 namespace Modules\Profile\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Modules\Article\Models\Article;
+use Modules\Article\Transformers\ArticleResource;
 use Modules\Auth\Services\ResponseBuilder;
 use Modules\Profile\Http\Requests\ProfileRequest;
 use Modules\Profile\Services\Contracts\ProfileServiceInterface;
@@ -123,6 +125,110 @@ class ProfileController extends Controller
 
         ResponseBuilder::error(
             'Failed to update your profile.'
+        );
+    }
+
+    /**
+     * @OA\Get(
+     *     path="/api/profile/library",
+     *     summary="Get user's saved articles (library)",
+     *     description="Retrieve all articles that the authenticated user has saved.",
+     *     tags={"Profile"},
+     *     security={{"bearerAuth": {}}},
+     *
+     *     @OA\Response(
+     *         response=200,
+     *         description="Library retrieved successfully",
+     *
+     *         @OA\JsonContent(
+     *             type="object",
+     *
+     *             @OA\Property(property="status", type="boolean", example=true),
+     *             @OA\Property(property="message", type="string", example="Your library has been retrieved successfully."),
+     *             @OA\Property(
+     *                 property="data",
+     *                 type="array",
+     *
+     *                 @OA\Items(
+     *                     type="object",
+     *
+     *                     @OA\Property(property="id", type="integer", example=1),
+     *                     @OA\Property(property="title", type="string", example="Sample Article Title"),
+     *                     @OA\Property(property="slug", type="string", example="sample-article-title"),
+     *                     @OA\Property(property="content", type="string", example="This is the content of the article."),
+     *                     @OA\Property(property="author_id", type="integer", example=1),
+     *                     @OA\Property(property="category_id", type="integer", example=2),
+     *                     @OA\Property(property="is_published", type="boolean", example=true),
+     *                     @OA\Property(property="published_at", type="string", format="date-time", example="2025-09-15T12:00:00Z"),
+     *                     @OA\Property(property="created_at", type="string", format="date-time", example="2025-09-01T12:00:00Z"),
+     *                     @OA\Property(property="updated_at", type="string", format="date-time", example="2025-09-10T12:00:00Z")
+     *                 )
+     *             )
+     *         )
+     *     ),
+     *
+     *     @OA\Response(response=401, description="Unauthorized")
+     * )
+     */
+    public function getLibrary()
+    {
+        $library = $this->user->savedArticles;
+
+        return ResponseBuilder::success(
+            $library,
+            'Your library has been retrieved successfully.'
+        );
+    }
+
+    /**
+     * @OA\Get(
+     *     path="/api/profile/myarticles",
+     *     summary="Get user's authored articles",
+     *     description="Retrieve all articles that the authenticated user has authored, ordered by creation date descending.",
+     *     tags={"Profile"},
+     *     security={{"bearerAuth": {}}},
+     *
+     *     @OA\Response(
+     *         response=200,
+     *         description="User's authored articles retrieved successfully",
+     *
+     *         @OA\JsonContent(
+     *             type="object",
+     *
+     *             @OA\Property(property="status", type="boolean", example=true),
+     *             @OA\Property(property="message", type="string", example="Your article list retrieved successfully."),
+     *             @OA\Property(
+     *                 property="data",
+     *                 type="array",
+     *
+     *                 @OA\Items(
+     *                     type="object",
+     *
+     *                     @OA\Property(property="id", type="integer", example=1),
+     *                     @OA\Property(property="title", type="string", example="Sample Article Title"),
+     *                     @OA\Property(property="slug", type="string", example="sample-article-title"),
+     *                     @OA\Property(property="content", type="string", example="This is the content of the article."),
+     *                     @OA\Property(property="author_id", type="integer", example=1),
+     *                     @OA\Property(property="category_id", type="integer", example=2),
+     *                     @OA\Property(property="is_published", type="boolean", example=true),
+     *                     @OA\Property(property="published_at", type="string", format="date-time", example="2025-09-15T12:00:00Z"),
+     *                     @OA\Property(property="created_at", type="string", format="date-time", example="2025-09-01T12:00:00Z"),
+     *                     @OA\Property(property="updated_at", type="string", format="date-time", example="2025-09-10T12:00:00Z")
+     *                 )
+     *             )
+     *         )
+     *     ),
+     *
+     *     @OA\Response(response=401, description="Unauthorized")
+     * )
+     */
+    public function getMyArticles()
+    {
+        $articles = Article::where('author_id', $this->user->id)->orderBy('created_at', 'desc')->get();
+
+        return ResponseBuilder::success(
+            ArticleResource::collection($articles),
+            'Your article list retrieved successfully.'
         );
     }
 }
