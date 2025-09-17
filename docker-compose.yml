@@ -28,6 +28,7 @@ services:
             - mailpit
             - selenium
             - pgsql
+            - ollama
     mysql:
         image: 'mysql/mysql-server:8.0'
         ports:
@@ -126,6 +127,15 @@ services:
                 - '${DB_USERNAME}'
             retries: 3
             timeout: 5s
+    ollama:
+        image: ollama/ollama
+        container_name: ollama
+        ports:
+            - "11434:11434"
+        volumes:
+            - ollama-data:/root/.ollama
+        networks:
+            - sail
 networks:
     sail:
         driver: bridge
@@ -137,4 +147,6 @@ volumes:
     sail-meilisearch:
         driver: local
     sail-pgsql:
+        driver: local
+    ollama-data:
         driver: local

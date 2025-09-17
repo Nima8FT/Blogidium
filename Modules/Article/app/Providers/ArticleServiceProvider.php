@@ -4,7 +4,9 @@ namespace Modules\Article\Providers;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use Modules\Article\Services\AiSummarizerService;
 use Modules\Article\Services\ArticleService;
+use Modules\Article\Services\Contracts\AiSummarizerServiceInterface;
 use Modules\Article\Services\Contracts\ArticleServiceInterface;
 use Nwidart\Modules\Traits\PathNamespace;
 use RecursiveDirectoryIterator;
@@ -39,6 +41,7 @@ class ArticleServiceProvider extends ServiceProvider
         $this->app->register(EventServiceProvider::class);
         $this->app->register(RouteServiceProvider::class);
         $this->app->bind(ArticleServiceInterface::class, ArticleService::class);
+        $this->app->bind(AiSummarizerServiceInterface::class, AiSummarizerService::class);
     }
 
     /**

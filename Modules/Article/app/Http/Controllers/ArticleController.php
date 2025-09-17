@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Modules\Article\Http\Requests\ArticleStoreRequest;
 use Modules\Article\Http\Requests\ArticleUpdateRequest;
 use Modules\Article\Models\Article;
+use Modules\Article\Services\Contracts\AiSummarizerServiceInterface;
 use Modules\Article\Services\Contracts\ArticleServiceInterface;
 use Modules\Article\Transformers\ArticleResource;
 use Modules\Auth\Services\Contracts\AuthServiceInterface;
@@ -15,7 +16,8 @@ class ArticleController extends Controller
 {
     public function __construct(
         private AuthServiceInterface $authService,
-        private ArticleServiceInterface $articleService
+        private ArticleServiceInterface $articleService,
+        private AiSummarizerServiceInterface $aiSummarizerService
     ) {}
 
     /**
@@ -209,9 +211,11 @@ class ArticleController extends Controller
      */
     public function show(Article $article)
     {
+        $aiSummary = $this->aiSummarizerService->summarize($article);
+
         return ResponseBuilder::success(
-            new ArticleResource($article),
-            'Article details fetched successfully.'
+            new ArticleResource($article, $aiSummary),
+            'Article details fetched successfully.',
         );
     }
 

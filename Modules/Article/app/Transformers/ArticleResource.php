@@ -8,6 +8,12 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class ArticleResource extends JsonResource
 {
+    public function __construct($resource, $aiSummay = null)
+    {
+        parent::__construct($resource);
+        $this->aiSummary = $aiSummay;
+    }
+
     /**
      * Transform the resource into an array.
      */
@@ -17,7 +23,8 @@ class ArticleResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'slug' => $this->slug,
-            'content' => $this->content,
+            'content' => preg_replace('/\s+/', ' ', $this->content),
+            'ai_short' => $this->aiSummary ? preg_replace('/\s+/', ' ', $this->aiSummary) : null,
             'image' => $this->image,
             'author' => $this->author ? [
                 'author_name' => $this->author->username,
