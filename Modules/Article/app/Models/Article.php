@@ -7,6 +7,7 @@ use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Laravel\Scout\Searchable;
 use Modules\Article\Database\Factories\ArticleFactory;
 use Modules\Category\Models\Category;
 use Modules\SocialNetwork\Models\Comment;
@@ -14,7 +15,10 @@ use Modules\Tag\Models\Tag;
 
 class Article extends Model
 {
-    use HasFactory, Sluggable, softDeletes;
+    use HasFactory,
+        Sluggable,
+        //        Searchable,
+        softDeletes;
 
     /**
      * The attributes that are mass assignable.

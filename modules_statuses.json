@@ -5,5 +5,6 @@
     "Tag": true,
     "Media": true,
     "SocialNetwork": true,
-    "Profile": true
+    "Profile": true,
+    "Search": true
 }

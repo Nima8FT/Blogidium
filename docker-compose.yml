@@ -29,6 +29,8 @@ services:
             - selenium
             - pgsql
             - ollama
+            - elasticsearch
+            - kibana
     mysql:
         image: 'mysql/mysql-server:8.0'
         ports:
@@ -131,9 +133,33 @@ services:
         image: ollama/ollama
         container_name: ollama
         ports:
-            - "11434:11434"
+            - '11434:11434'
         volumes:
-            - ollama-data:/root/.ollama
+            - 'ollama-data:/root/.ollama'
+        networks:
+            - sail
+    elasticsearch:
+        image: elasticsearch:9.1.4
+        container_name: elasticsearch
+        environment:
+            - discovery.type=single-node
+            - ES_JAVA_OPTS=-Xms512m -Xmx512m
+            - xpack.security.enabled=false
+        ports:
+            - "9200:9200"
+            - "9300:9300"
+        networks:
+            - sail
+
+    kibana:
+        image: kibana:9.1.4
+        container_name: kibana
+        environment:
+            ELASTICSEARCH_URL: http://elasticsearch:9200
+        ports:
+            - "5601:5601"
+        depends_on:
+            - elasticsearch
         networks:
             - sail
 networks:
