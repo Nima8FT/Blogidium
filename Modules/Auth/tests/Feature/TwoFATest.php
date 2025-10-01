@@ -106,7 +106,7 @@ class TwoFATest extends TestCase
 
         $response = $this->postJson(route('2fa.verify'), [
             'token' => $twoFA->temp_token,
-            'otp' => (int) $validOtp,
+            'otp' => str_pad($validOtp, 6, '0', STR_PAD_LEFT),
         ]);
 
         $response->assertStatus(200);

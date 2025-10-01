@@ -16,8 +16,8 @@ use Modules\Tag\Models\Tag;
 class Article extends Model
 {
     use HasFactory,
+        Searchable,
         Sluggable,
-        //        Searchable,
         softDeletes;
 
     /**
@@ -78,5 +78,13 @@ class Article extends Model
     public function comments()
     {
         return $this->hasMany(Comment::class);
+    }
+
+    public function toSearchableArray()
+    {
+        return [
+            'id' => $this->id,
+            'title' => $this->title,
+        ];
     }
 }

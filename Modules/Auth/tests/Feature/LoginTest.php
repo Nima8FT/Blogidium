@@ -29,7 +29,7 @@ class LoginTest extends TestCase
 
         $this->withHeaders([
             'Authorization' => 'Bearer '.$response->json('token'),
-        ])->getJson(route('profile'))->assertOk();
+        ])->getJson(route('api.profile.show'))->assertOk();
 
         $response->assertOk();
 
@@ -50,7 +50,7 @@ class LoginTest extends TestCase
     {
         $response = $this->withHeaders([
             'Authorization' => 'Bearer fake-token',
-        ])->getJson(route('profile'));
+        ])->getJson(route('api.profile.show'));
 
         $response->assertStatus(401);
     }

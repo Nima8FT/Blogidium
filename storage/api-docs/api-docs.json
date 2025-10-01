@@ -2396,6 +2396,69 @@
                 ]
             }
         },
+        "/api/search": {
+            "post": {
+                "tags": [
+                    "Search"
+                ],
+                "summary": "Search articles",
+                "description": "Search for articles by keyword",
+                "operationId": "searchArticles",
+                "parameters": [
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "Search keyword",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Search results retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "title": {
+                                                        "type": "string",
+                                                        "example": "Example Article"
+                                                    },
+                                                    "content": {
+                                                        "type": "string",
+                                                        "example": "Article content here"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Search Article retrieved successfully."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/api/articles/{article}/comments": {
             "get": {
                 "tags": [
@@ -3385,6 +3448,10 @@
         {
             "name": "Profile",
             "description": "Profile"
+        },
+        {
+            "name": "Search",
+            "description": "Search"
         },
         {
             "name": "Comments",

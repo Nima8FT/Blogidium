@@ -5,6 +5,7 @@ namespace Modules\Article\Tests\Feature;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Modules\Article\Models\Article;
+use Modules\Article\Services\AiSummarizerService;
 use Modules\Category\Models\Category;
 use Modules\Tag\Models\Tag;
 use Tests\TestCase;
@@ -130,6 +131,12 @@ class ArticleTest extends TestCase
             'author_id' => $user->id,
             'category_id' => $category->id,
         ]);
+
+        $this->mock(AiSummarizerService::class, function ($mock) {
+            $mock->shouldReceive('summarize')
+                ->once()
+                ->andReturn('This is a fake AI summary');
+        });
 
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '.$token,

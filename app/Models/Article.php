@@ -7,5 +7,5 @@ use PDPhilip\ElasticLens\Indexable;
 
 class Article extends ArticleModel
 {
-    use Indexable;
+    //    use Indexable;
 }
