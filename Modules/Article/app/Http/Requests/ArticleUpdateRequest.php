@@ -18,6 +18,7 @@ class ArticleUpdateRequest extends FormRequest
             'tags' => 'array',
             'tags.*' => 'exists:tags,id',
             'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'is_premium' => 'boolean',
         ];
     }
 

@@ -6,5 +6,6 @@
     "Media": true,
     "SocialNetwork": true,
     "Profile": true,
-    "Search": true
+    "Search": true,
+    "RolePermission": true
 }

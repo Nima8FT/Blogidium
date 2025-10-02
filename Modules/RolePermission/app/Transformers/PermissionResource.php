@@ -1,11 +1,12 @@
 <?php
 
-namespace Modules\Auth\Transformers;
+namespace Modules\RolePermission\Transformers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class UserResource extends JsonResource
+class PermissionResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,9 +16,9 @@ class UserResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'username' => $this->username,
-            'email' => $this->email,
             'roles' => $this->roles->pluck('name'),
+            'created_at' => Carbon::parse($this->created_at)->diffForHumans(),
+            'updated_at' => Carbon::parse($this->updated_at)->diffForHumans(),
         ];
     }
 }

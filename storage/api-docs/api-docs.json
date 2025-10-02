@@ -2396,6 +2396,516 @@
                 ]
             }
         },
+        "/api/permissions": {
+            "get": {
+                "tags": [
+                    "Roles & Permission"
+                ],
+                "summary": "List all permissions",
+                "operationId": "986fda15b643102ed02bb8f63cde18c5",
+                "responses": {
+                    "200": {
+                        "description": "Permissions retrieved successfully."
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Roles & Permission"
+                ],
+                "summary": "Create a new permission",
+                "operationId": "39f26f188c13388f7c960a23a3b57ff1",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "description": "Name of the permission",
+                                        "type": "string",
+                                        "example": "edit-post"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Permission created successfully."
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/permissions/{permission}": {
+            "get": {
+                "tags": [
+                    "Roles & Permission"
+                ],
+                "summary": "Get details of a permission",
+                "operationId": "afdd7ae1693598988cbbeada23486ab8",
+                "parameters": [
+                    {
+                        "name": "permission",
+                        "in": "path",
+                        "description": "ID of the permission",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Permission details retrieved successfully."
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Roles & Permission"
+                ],
+                "summary": "Update a permission",
+                "operationId": "9d778dec820137a9e70db6b0284022a3",
+                "parameters": [
+                    {
+                        "name": "permission",
+                        "in": "path",
+                        "description": "ID of the permission to update",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "description": "New name of the permission",
+                                        "type": "string",
+                                        "example": "edit-post"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Permission updated successfully."
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Roles & Permission"
+                ],
+                "summary": "Delete a permission",
+                "operationId": "299adc24adddfaa2ac0ebd9508a314c4",
+                "parameters": [
+                    {
+                        "name": "permission",
+                        "in": "path",
+                        "description": "ID of the permission to delete",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Permission deleted successfully."
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/roles": {
+            "get": {
+                "tags": [
+                    "Roles & Permission"
+                ],
+                "summary": "List all roles",
+                "operationId": "1823b417ac4516baa67bdc61bf83801b",
+                "responses": {
+                    "200": {
+                        "description": "Roles retrieved successfully."
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Roles & Permission"
+                ],
+                "summary": "Create a new role",
+                "operationId": "879a8fba0a29a9501093d8a3cb51e9e0",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "description": "Name of the role",
+                                        "type": "string",
+                                        "example": "admin"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Role created successfully."
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/roles/{role}": {
+            "get": {
+                "tags": [
+                    "Roles & Permission"
+                ],
+                "summary": "Get details of a role",
+                "operationId": "45d517593492a4f015d67092c3e1dd6f",
+                "parameters": [
+                    {
+                        "name": "role",
+                        "in": "path",
+                        "description": "ID of the role",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Role details retrieved successfully."
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Roles & Permission"
+                ],
+                "summary": "Update a role",
+                "operationId": "c7109408cbde5122b7da9758c8b0fd03",
+                "parameters": [
+                    {
+                        "name": "role",
+                        "in": "path",
+                        "description": "ID of the role to update",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "description": "New name of the role",
+                                        "type": "string",
+                                        "example": "admin"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Role updated successfully."
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Roles & Permission"
+                ],
+                "summary": "Delete a role",
+                "operationId": "5aa3a5c9a5c6cf358a5cb8d5d737787e",
+                "parameters": [
+                    {
+                        "name": "role",
+                        "in": "path",
+                        "description": "ID of the role to delete",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Role deleted successfully."
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/role/{role}/addpermissions": {
+            "post": {
+                "tags": [
+                    "Roles & Permission"
+                ],
+                "summary": "Add permissions to a role",
+                "operationId": "f4574f8bec19f1e247faf8a8cff9af64",
+                "parameters": [
+                    {
+                        "name": "role",
+                        "in": "path",
+                        "description": "ID of the role",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "permissions"
+                                ],
+                                "properties": {
+                                    "permissions": {
+                                        "description": "List of permission IDs to add",
+                                        "type": "array",
+                                        "items": {
+                                            "type": "integer"
+                                        },
+                                        "example": [
+                                            1,
+                                            2,
+                                            3
+                                        ]
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Permissions added successfully"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/role/{role}/deletepermissions": {
+            "post": {
+                "tags": [
+                    "Roles & Permission"
+                ],
+                "summary": "Remove permissions from a role",
+                "operationId": "3defb0cdf15db23758c249936575c5e8",
+                "parameters": [
+                    {
+                        "name": "role",
+                        "in": "path",
+                        "description": "ID of the role",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "permissions"
+                                ],
+                                "properties": {
+                                    "permissions": {
+                                        "description": "List of permission IDs to remove",
+                                        "type": "array",
+                                        "items": {
+                                            "type": "integer"
+                                        },
+                                        "example": [
+                                            1,
+                                            2,
+                                            3
+                                        ]
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Permissions removed successfully"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/user/{user}/addrole": {
+            "post": {
+                "tags": [
+                    "Roles & Permission"
+                ],
+                "summary": "Add roles to a user",
+                "operationId": "27749dca2a6ec7e8c577e3d2f12a008f",
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "path",
+                        "description": "ID of the user",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "roles"
+                                ],
+                                "properties": {
+                                    "roles": {
+                                        "description": "List of role IDs to add",
+                                        "type": "array",
+                                        "items": {
+                                            "type": "integer"
+                                        },
+                                        "example": [
+                                            1,
+                                            2,
+                                            3
+                                        ]
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Roles added successfully"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/user/{user}/removerole": {
+            "post": {
+                "tags": [
+                    "Roles & Permission"
+                ],
+                "summary": "Remove roles from a user",
+                "operationId": "67e4f82bdcb12a34ad21fb6aa9adf699",
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "path",
+                        "description": "ID of the user",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "roles"
+                                ],
+                                "properties": {
+                                    "roles": {
+                                        "description": "List of role IDs to remove",
+                                        "type": "array",
+                                        "items": {
+                                            "type": "integer"
+                                        },
+                                        "example": [
+                                            1,
+                                            2,
+                                            3
+                                        ]
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Roles removed successfully"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/search": {
             "post": {
                 "tags": [
@@ -3448,6 +3958,10 @@
         {
             "name": "Profile",
             "description": "Profile"
+        },
+        {
+            "name": "Roles & Permission",
+            "description": "Roles & Permission"
         },
         {
             "name": "Search",

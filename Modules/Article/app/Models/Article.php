@@ -23,7 +23,7 @@ class Article extends Model
     /**
      * The attributes that are mass assignable.
      */
-    protected $fillable = ['title', 'slug', 'content', 'image', 'author_id', 'category_id', 'is_published', 'published_at'];
+    protected $fillable = ['title', 'slug', 'content', 'image', 'author_id', 'category_id', 'is_published', 'published_at', 'is_premium'];
 
     protected static function newFactory(): ArticleFactory
     {

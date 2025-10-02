@@ -40,6 +40,7 @@ class ArticleResource extends JsonResource
             'published_at' => Carbon::parse($this->published_at)->diffForHumans(),
             'created_at' => Carbon::parse($this->created_at)->diffForHumans(),
             'updated_at' => Carbon::parse($this->updated_at)->diffForHumans(),
+            'premium' => $this->is_premium,
         ], fn ($value) => ! is_null($value));
     }
 }
