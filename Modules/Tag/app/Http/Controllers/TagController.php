@@ -3,6 +3,7 @@
 namespace Modules\Tag\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Modules\Auth\Services\ResponseBuilder;
 use Modules\Tag\Http\Requests\TagStoreRequest;
 use Modules\Tag\Http\Requests\TagUpdateRequest;
@@ -11,6 +12,8 @@ use Modules\Tag\Transformers\TagResource;
 
 class TagController extends Controller
 {
+    use AuthorizesRequests;
+
     /**
      * @OA\Get(
      *     path="/api/tags",
@@ -26,6 +29,7 @@ class TagController extends Controller
      */
     public function index()
     {
+        $this->authorize('viewAny', Tag::class);
         $tags = Tag::latest()->paginate(10);
 
         return ResponseBuilder::success(
@@ -59,6 +63,7 @@ class TagController extends Controller
      */
     public function store(TagStoreRequest $request)
     {
+        $this->authorize('create', Tag::class);
         $data = $request->validated();
         $tag = Tag::create($data);
 
@@ -92,6 +97,7 @@ class TagController extends Controller
      */
     public function show(Tag $tag)
     {
+        $this->authorize('view', Tag::class);
         return ResponseBuilder::success(
             new TagResource($tag),
             'Tag retrieved successfully.'
@@ -131,6 +137,7 @@ class TagController extends Controller
      */
     public function update(TagUpdateRequest $request, Tag $tag)
     {
+        $this->authorize('update', Tag::class);
         $data = $request->validated();
         $tag->update($data);
 
@@ -168,15 +175,12 @@ class TagController extends Controller
      */
     public function destroy(Tag $tag)
     {
-        try {
+            $this->authorize('destroy', Tag::class);
             $tag->delete();
 
             return ResponseBuilder::success(
                 null,
                 'Tag deleted successfully.'
             );
-        } catch (\Exception $e) {
-            return ResponseBuilder::error('Tag cannot be deleted at this moment.');
-        }
     }
 }

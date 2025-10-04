@@ -3,13 +3,17 @@
 namespace Modules\RolePermission\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Support\Facades\Gate;
 use Modules\Auth\Services\ResponseBuilder;
 use Modules\RolePermission\Http\Requests\RolePermissionRequest;
+use Modules\RolePermission\Models\RolePermission;
 use Modules\RolePermission\Transformers\RoleResource;
 use Spatie\Permission\Models\Role;
 
 class RolePermissionController extends Controller
 {
+    use AuthorizesRequests;
     /**
      * @OA\Post(
      *     path="/api/role/{role}/addpermissions",
@@ -44,6 +48,7 @@ class RolePermissionController extends Controller
      */
     public function addPermissions(RolePermissionRequest $request, Role $role)
     {
+        $this->authorize('addPermission', RolePermission::class);
         $data = $request->validated();
         $role->syncPermissions($data['permissions']);
 
@@ -87,6 +92,7 @@ class RolePermissionController extends Controller
      */
     public function removePermissions(RolePermissionRequest $request, Role $role)
     {
+        $this->authorize('removePermission', RolePermission::class);
         $data = $request->validated();
         foreach ($data['permissions'] as $permission) {
             $role->revokePermissionTo($permission);

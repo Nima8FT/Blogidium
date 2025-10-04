@@ -3,6 +3,7 @@
 namespace Modules\Category\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Modules\Auth\Services\ResponseBuilder;
 use Modules\Category\Http\Requests\CategoryStoreRequest;
 use Modules\Category\Http\Requests\CategoryUpdateRequest;
@@ -11,6 +12,8 @@ use Modules\Category\Transformers\CategoryResource;
 
 class CategoryController extends Controller
 {
+    use AuthorizesRequests;
+
     /**
      * @OA\Get(
      *     path="/api/categories",
@@ -47,6 +50,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
+        $this->authorize('viewAny', Category::class);
         $categories = Category::latest()->paginate(10);
 
         return ResponseBuilder::success(
@@ -94,6 +98,7 @@ class CategoryController extends Controller
      */
     public function store(CategoryStoreRequest $request)
     {
+        $this->authorize('create', new Category());
         $data = $request->validated();
         $category = Category::create($data);
 
@@ -141,6 +146,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
+        $this->authorize('view', Category::class);
         return ResponseBuilder::success(
             new CategoryResource($category),
             'Category details fetched successfully.'
@@ -195,6 +201,7 @@ class CategoryController extends Controller
      */
     public function update(CategoryUpdateRequest $request, Category $category)
     {
+        $this->authorize('update', $category);
         $data = $request->validated();
         $category->update($data);
 
@@ -244,12 +251,8 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        try {
-            $category->delete();
-
-            return ResponseBuilder::success(null, 'Category deleted successfully.');
-        } catch (\Exception $e) {
-            return ResponseBuilder::error('Failed to delete category.');
-        }
+        $this->authorize('destroy', $category);
+        $category->delete();
+        return ResponseBuilder::success(null, 'Category deleted successfully.');
     }
 }

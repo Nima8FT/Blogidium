@@ -3,6 +3,7 @@
 namespace Modules\Article\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Modules\Article\Http\Requests\ArticleStoreRequest;
 use Modules\Article\Http\Requests\ArticleUpdateRequest;
 use Modules\Article\Models\Article;
@@ -14,11 +15,15 @@ use Modules\Auth\Services\ResponseBuilder;
 
 class ArticleController extends Controller
 {
+    use AuthorizesRequests;
+
     public function __construct(
-        private AuthServiceInterface $authService,
-        private ArticleServiceInterface $articleService,
+        private AuthServiceInterface         $authService,
+        private ArticleServiceInterface      $articleService,
         private AiSummarizerServiceInterface $aiSummarizerService
-    ) {}
+    )
+    {
+    }
 
     /**
      * @OA\Get(
@@ -76,6 +81,7 @@ class ArticleController extends Controller
      */
     public function index()
     {
+        $this->authorize('viewAny', Article::class);
         $articles = Article::latest()->paginate(10);
 
         return ResponseBuilder::success(
@@ -145,6 +151,7 @@ class ArticleController extends Controller
      */
     public function store(ArticleStoreRequest $request)
     {
+        $this->authorize('create', Article::class);
         $data = $request->validated();
         $user = $this->authService->getUser();
         $article = $this->articleService->create($data, $user);
@@ -211,11 +218,19 @@ class ArticleController extends Controller
      */
     public function show(Article $article)
     {
-        $aiSummary = $this->aiSummarizerService->summarize($article);
+        $this->authorize('view', $article);
+        if ($article->is_premium) {
+            $this->authorize('viewPremium', Article::class);
+            $aiSummary = $this->aiSummarizerService->summarize($article);
 
-        return ResponseBuilder::success(
-            new ArticleResource($article, $aiSummary),
-            'Article details fetched successfully.',
+            return ResponseBuilder::success(
+                new ArticleResource($article, $aiSummary),
+                'Article details fetched successfully.',
+            );
+        }
+        return ResponseBuilder::error(
+            null,
+            'This article for premium user'
         );
     }
 
@@ -275,6 +290,7 @@ class ArticleController extends Controller
      */
     public function update(ArticleUpdateRequest $request, Article $article)
     {
+        $this->authorize('update', $article);
         $data = $request->validated();
         $user = $this->authService->getUser();
         $is_update = $this->articleService->update($article, $data, $user);
@@ -320,16 +336,12 @@ class ArticleController extends Controller
      */
     public function destroy(Article $article)
     {
-        try {
-            $user = $this->authService->getUser();
-            $is_deleted = $this->articleService->delete($article, $user);
-            if ($is_deleted) {
-                return ResponseBuilder::success(null, 'Article deleted successfully.');
-            }
-
-            return ResponseBuilder::error('Article not for you.');
-        } catch (\Exception $e) {
-            return ResponseBuilder::error($e->getMessage());
+        $this->authorize('destroy', $article);
+        $user = $this->authService->getUser();
+        $is_deleted = $this->articleService->delete($article, $user);
+        if ($is_deleted) {
+            return ResponseBuilder::success(null, 'Article deleted successfully.');
         }
+        return ResponseBuilder::error('Article not for you.');
     }
 }

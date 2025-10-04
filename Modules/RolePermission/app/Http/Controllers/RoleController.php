@@ -3,6 +3,8 @@
 namespace Modules\RolePermission\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Support\Facades\Gate;
 use Modules\Auth\Services\ResponseBuilder;
 use Modules\RolePermission\Http\Requests\StoreRoleRequest;
 use Modules\RolePermission\Http\Requests\UpdateRoleRequest;
@@ -11,6 +13,7 @@ use Spatie\Permission\Models\Role;
 
 class RoleController extends Controller
 {
+    use AuthorizesRequests;
     /**
      * @OA\Get(
      *     path="/api/roles",
@@ -25,6 +28,7 @@ class RoleController extends Controller
      */
     public function index()
     {
+        $this->authorize('viewAny', Role::class);
         $roles = Role::latest()->paginate(10);
 
         return ResponseBuilder::success(
@@ -60,6 +64,7 @@ class RoleController extends Controller
      */
     public function store(StoreRoleRequest $request)
     {
+        $this->authorize('create', Role::class);
         $data = $request->validated();
         $role = Role::create($data);
 
@@ -89,6 +94,7 @@ class RoleController extends Controller
      */
     public function show(Role $role)
     {
+        $this->authorize('view', Role::class);
         return ResponseBuilder::success(
             new RoleResource($role),
             'Role details retrieved successfully.'
@@ -127,6 +133,7 @@ class RoleController extends Controller
      */
     public function update(UpdateRoleRequest $request, Role $role)
     {
+        $this->authorize('update', Role::class);
         $data = $request->validated();
         $role->update($data);
 
@@ -157,6 +164,7 @@ class RoleController extends Controller
      */
     public function destroy(Role $role)
     {
+        $this->authorize('destroy', Role::class);
         $role->delete();
 
         return ResponseBuilder::success(

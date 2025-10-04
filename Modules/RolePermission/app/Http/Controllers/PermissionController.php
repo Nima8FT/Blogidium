@@ -3,6 +3,7 @@
 namespace Modules\RolePermission\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Modules\Auth\Services\ResponseBuilder;
 use Modules\RolePermission\Http\Requests\StorePermissionRequest;
 use Modules\RolePermission\Http\Requests\UpdatePermissionRequest;
@@ -11,6 +12,8 @@ use Spatie\Permission\Models\Permission;
 
 class PermissionController extends Controller
 {
+    use AuthorizesRequests;
+
     /**
      * @OA\Get(
      *     path="/api/permissions",
@@ -25,7 +28,8 @@ class PermissionController extends Controller
      */
     public function index()
     {
-        $permissions = Permission::latest()->paginate(10);
+        $this->authorize('viewAny', Permission::class);
+        $permissions = Permission::latest()->paginate(20);
 
         return ResponseBuilder::success(
             PermissionResource::collection($permissions),
@@ -59,6 +63,7 @@ class PermissionController extends Controller
      */
     public function store(StorePermissionRequest $request)
     {
+        $this->authorize('create', Permission::class);
         $data = $request->validated();
         $permissions = Permission::create($data);
 
@@ -88,6 +93,7 @@ class PermissionController extends Controller
      */
     public function show(Permission $permission)
     {
+        $this->authorize('view', $permission);
         return ResponseBuilder::success(
             new PermissionResource($permission),
             'Permission details retrieved successfully.'
@@ -126,6 +132,7 @@ class PermissionController extends Controller
      */
     public function update(UpdatePermissionRequest $request, Permission $permission)
     {
+        $this->authorize('update', $permission);
         $data = $request->validated();
         $permission->update($data);
 
@@ -155,6 +162,7 @@ class PermissionController extends Controller
      */
     public function destroy(Permission $permission)
     {
+        $this->authorize('destroy', $permission);
         $permission->delete();
 
         return ResponseBuilder::success(
